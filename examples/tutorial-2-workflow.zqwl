@@ -1,0 +1,40 @@
+# Workflow API version
+apiVersion: io.orquestra.workflow/1.0.0
+
+# Prefix for workflow ID
+name: tutorial-2
+
+# List resources needed by workflow.
+imports:
+- name: tutorial-resource
+  type: git
+  parameters:
+    repository: "git@github.com:<your-github-id>/tutorial-resource.git"
+    branch: "master"
+
+steps:
+
+# This step runs the task 
+- name: perceptron-training
+  config:
+    runtime:
+      type: python3
+      imports: [tutorial-resource]
+      parameters:
+        file: tutorial-resource/tasks/tutorial_2_task.py
+        function: generate_train_predict
+    resources:
+      cpu: "1000m"
+      memory: "1Gi"
+      disk: "15Gi"
+  inputs:
+    - dataset_name: "simple_dataset"
+      type: string
+    - model_name: "perceptron"
+      type: string
+  outputs:
+  - name: result
+    type: message
+
+types:
+ - message
