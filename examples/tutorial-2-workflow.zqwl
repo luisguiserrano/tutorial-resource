@@ -9,7 +9,7 @@ imports:
 - name: tutorial-resource
   type: git
   parameters:
-    repository: "git@github.com:<your-github-id>/tutorial-resource.git"
+    repository: "git@github.com:luisguiserrano/tutorial-resource.git"
     branch: "master"
 
 steps:
